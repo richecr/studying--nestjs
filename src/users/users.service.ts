@@ -15,6 +15,11 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  async update(id: number, user: CreateUserDto): Promise<User> {
+    const r = await this.usersRepository.update({ id }, user);
+    return r.raw[0];
+  }
+
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
@@ -24,6 +29,6 @@ export class UsersService {
   }
 
   async remove(id: number): Promise<void> {
-    await this.usersRepository.delete(id);
+    await this.usersRepository.delete({ id });
   }
 }
